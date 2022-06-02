@@ -1,0 +1,25 @@
+version: "3"
+services:
+  secpanel:
+    build: .
+    volumes:
+      - "./:/apipanel"
+      - "/var/log/apipanel/:/var/log/apipanel/"
+    container_name: api_panel
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: always
+  db:
+    image: postgres:latest
+    container_name:  ApiPanel
+    restart: always
+    volumes:
+      - ./ .database/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "5432"
+    networks:
+      - net
+
+  networks:
+    net:
+      driver: bridge
